@@ -40,9 +40,10 @@ class ReplayTools:
         self.session = session
         self.definitions = definitions
 
-    async def call(self, tool, arguments):
+    async def call(self, tool, arguments, sample=None):
         validate(arguments, self.definitions[tool]["schema"])
-        result = await self.session.call_tool(tool, arguments=arguments)
+        meta = {"incident-triage/sample": sample} if sample is not None else None
+        result = await self.session.call_tool(tool, arguments=arguments, meta=meta)
         if result.isError or not isinstance(result.structuredContent, dict):
             raise RuntimeError("MCP returned an error for the selected diagnostic")
         return result.structuredContent

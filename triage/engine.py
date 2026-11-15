@@ -14,12 +14,14 @@ from .catalog import (
     stable_id,
     visible_signals,
 )
+from .incidents import CUSTOM_TOOLS
 
 GRAPH_MODES = {"graph", "learned"}
 MODES = {"graph", "learned", "flat", "preload"}
 CANDIDATE_LIMIT = 3
 
 SIGNAL_AFFINITY = {
+    "trace": {"trace_failures": 5},
     "error_counter": {"inspect_errors": 3, "trace_failures": 3, "sample_logs": 1},
     "latency": {"inspect_latency": 4},
     "health": {"dependency_health": 6, "inspect_latency": 1, "sample_logs": 1},
@@ -166,6 +168,7 @@ class TriageEngine:
         bookmark=None,
         service_hint=None,
         alert=None,
+        hop_limit=3,
     ):
         if mode not in MODES:
             raise ValueError(f"Unknown retrieval mode {mode}")
@@ -180,6 +183,7 @@ class TriageEngine:
         # The observation time and tool data remain pinned to the replay for all modes.
         case = {**replay, "alert": alert or replay["alert"]}
         anchor = None
+        reachable = []
         if mode in GRAPH_MODES:
             anchor = await database(self.graph.resolve, service_hint or case["service"])
             if anchor is not None:
@@ -187,7 +191,7 @@ class TriageEngine:
 
         if mode in GRAPH_MODES and anchor:
             candidates, (signals, deploys) = await asyncio.gather(
-                database(self.graph.actions, anchor),
+                database(self.graph.actions, anchor, hop_limit),
                 database(self.graph.observations, case),
             )
             confirmations = (
@@ -201,6 +205,17 @@ class TriageEngine:
                 if mode == "learned"
                 else {}
             )
+            reachable = sorted({action["service_name"] for action in candidates})
+            if case.get("custom"):
+                eligible = {
+                    (signal["service"], CUSTOM_TOOLS[signal["kind"]])
+                    for signal in signals
+                }
+                candidates = [
+                    action
+                    for action in candidates
+                    if (action["service"], action["tool"]) in eligible
+                ]
             ranked = graph_rank(case, candidates, signals, confirmations)
         elif mode in GRAPH_MODES:
             signals, deploys, ranked = [], [], []
@@ -278,6 +293,7 @@ class TriageEngine:
             "status": "abstained",
             "anchor": None if anchor is None else anchor["name"],
             "observations": signals,
+            "reachable": reachable,
             "actions": actions,
             "tool_schemas": list(definitions.values()),
             "catalog_tools": len(self.mcp.definitions),
@@ -288,15 +304,24 @@ class TriageEngine:
             "tool_result": None,
             "explanation": "HydraDB could not resolve the service."
             if mode in GRAPH_MODES and not anchor
+            else "No recent observation matched a diagnostic within this dependency depth."
+            if case.get("custom") and not actions
             else "There is insufficient evidence for a first diagnostic check.",
         }
         graph_before_tool = db_calls
         if decision is not None:
             winner, chosen = actions[decision - 1], selected[decision - 1]
-            resolution = await self.mcp.call(winner["tool"], winner["arguments"])
+            sample = (
+                case["telemetry"].get(winner["service"], {})
+                if case.get("custom")
+                else None
+            )
+            resolution = await self.mcp.call(
+                winner["tool"], winner["arguments"], sample=sample
+            )
             links, evidence, owner = [], [], chosen.get("owner")
             if anchor is not None:
-                evidence, owner = await self.graph.evidence(anchor, chosen)
+                evidence, owner = await self.graph.evidence(anchor, chosen, hop_limit)
                 db_calls += 1 if anchor["id"] == chosen["service_id"] else 2
                 labels = [
                     "DEPENDS_ON"

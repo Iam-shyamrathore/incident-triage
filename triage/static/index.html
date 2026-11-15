@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Replay an incident and inspect the HydraDB context behind the first diagnostic action.">
+  <meta name="description" content="Enter incident evidence and inspect the HydraDB path behind the first diagnostic action.">
   <title>Incident Triage</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=Geist:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/app.css">
   <script type="module" src="/static/app.js"></script>
 </head>
@@ -15,56 +15,83 @@
   <header class="topbar">
     <div class="wrap bar">
       <a class="wordmark" href="/" aria-label="Incident Triage home"><span class="mark" aria-hidden="true">↳</span> Incident Triage</a>
-      <nav aria-label="Sections"><a href="#replay">Replay</a><a href="#benchmark">Benchmark</a></nav>
+      <nav aria-label="Sections"><a href="#replay">Workbench</a><a href="#benchmark">Benchmark</a></nav>
       <span class="status" id="engine-status"><span class="dot"></span> Connecting</span>
     </div>
   </header>
   <main class="wrap">
     <section class="intro" id="replay">
       <div>
-        <p class="section-label">Online Boutique incident replay</p>
-        <h1>Find the first check.</h1>
-        <p class="lede">Replay a service alert. See which dependencies, runbook and tool HydraDB puts in front of the agent.</p>
+        <h1>Incident workbench</h1>
+        <p class="lede">Enter an alert and add a measurement. Follow the dependency path from the alerted service to the first diagnostic check.</p>
       </div>
-      <p class="scope">Synthetic telemetry<br><span>Read-only diagnostics</span></p>
+      <a class="scope" href="https://github.com/GoogleCloudPlatform/microservices-demo">Online Boutique sandbox ↗</a>
     </section>
-    <section class="workspace" aria-label="Incident replay">
+    <section class="workspace" aria-label="Incident workbench">
       <aside class="docket">
-        <div class="panel-title"><h2>Incoming alert</h2><span id="case-code" class="metadata"></span></div>
+        <div class="panel-title"><h2>Incident input</h2></div>
+        <div class="input-modes" role="group" aria-label="Incident source">
+          <button type="button" id="open-custom" aria-pressed="true">Your incident</button>
+          <button type="button" id="open-replays" aria-pressed="false">Example replays</button>
+        </div>
         <form id="replay-form">
-          <label for="case-picker">Replay incident</label>
-          <select id="case-picker" required><option>Loading incidents…</option></select>
-          <div class="alert-body">
-            <span class="alert-icon" aria-hidden="true">!</span>
-            <div><p id="alert-text">Select an incident to inspect the alert.</p><span id="case-service" class="metadata"></span></div>
+          <fieldset id="custom-form">
+            <label for="custom-alert">Alert</label>
+            <textarea id="custom-alert" required maxlength="500" rows="2" placeholder="Describe what’s failing"></textarea>
+            <div class="input-pair">
+              <div><label for="custom-service">Alerted service</label><select id="custom-service" required></select></div>
+              <div><label for="custom-depth">Dependency depth</label><select id="custom-depth">
+                <option value="0">Alerted service only</option>
+                <option value="1">1 hop</option>
+                <option value="2" selected>2 hops</option>
+                <option value="3">3 hops</option>
+              </select></div>
+            </div>
+            <div class="evidence-heading">
+              <h3>Evidence</h3>
+              <button type="button" id="load-example" class="text-button">Load a sample</button>
+            </div>
+            <div id="signal-rows"></div>
+            <p class="field-note">Use synthetic or sanitized measurements. The graph uses evidence from the last 30 minutes.</p>
+            <button type="button" id="add-signal" class="secondary-button">Add evidence</button>
+          </fieldset>
+          <fieldset id="example-form" hidden disabled>
+            <label for="case-picker">Replay incident</label>
+            <select id="case-picker" required><option>Loading incidents…</option></select>
+            <div class="alert-body">
+              <div><p id="alert-text">Select an incident to inspect the alert.</p><span id="case-service" class="metadata"></span></div>
+            </div>
+          </fieldset>
+          <div class="context-control">
+            <label for="mode-picker">Context strategy</label>
+            <select id="mode-picker">
+              <option value="learned">HydraDB with feedback</option>
+              <option value="graph">Frozen HydraDB</option>
+              <option value="flat" disabled>Flat tool search</option>
+              <option value="preload" disabled>All tools preloaded</option>
+            </select>
           </div>
-          <label for="mode-picker">Agent context</label>
-          <select id="mode-picker">
-            <option value="learned">HydraDB with feedback</option>
-            <option value="graph">Frozen HydraDB</option>
-            <option value="flat">Flat tool search</option>
-            <option value="preload">All tools preloaded</option>
-          </select>
           <button type="submit" id="run" disabled>Run triage <span aria-hidden="true">→</span></button>
         </form>
         <p id="replay-status" class="run-status" role="status" aria-live="polite"></p>
         <dl class="metrics" id="metrics" hidden></dl>
       </aside>
       <section class="response" aria-labelledby="response-title">
-        <div class="panel-title response-header"><h2 id="response-title">Response trace</h2><span class="metadata" id="trace-state">AWAITING REPLAY</span></div>
+        <div class="panel-title response-header"><h2 id="response-title">Response trace</h2><span class="metadata" id="trace-state">Ready for input</span></div>
         <div class="empty" id="empty">
-          <div class="empty-rail" aria-hidden="true"><span></span><span></span><span></span></div>
-          <p>Run an alert to see the selected diagnostic and the graph behind it.</p>
+          <p id="trace-prompt">Run the incident to see which services HydraDB reaches and which diagnostic the agent runs.</p>
+          <p id="depth-tip" class="field-note">With the sample, compare 1 hop and 2 hops using the same evidence.</p>
         </div>
         <div id="output" hidden>
           <div class="diagnostic">
-            <span class="metadata" id="check-label">FIRST DIAGNOSTIC</span>
+            <span class="metadata" id="check-label">First diagnostic</span>
             <h3 id="action-title"></h3>
             <p id="action-detail"></p>
             <div id="finding" class="finding" hidden>
               <span>Observed result</span><p id="finding-text"></p>
             </div>
           </div>
+          <details id="reach" hidden><summary id="reach-label"></summary><p id="reach-list" class="reach-list"></p></details>
           <div class="trace" id="trace" hidden>
             <h3>Evidence path</h3>
             <ol id="path"></ol>

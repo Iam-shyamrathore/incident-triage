@@ -5,11 +5,13 @@
 - **Loom** Paste the recording URL after following the [recording script](LOOM.md).
 - **Benchmark evidence** [Raw replay and load results](https://hydradb-incident-triage.vercel.app/api/benchmark)
 
+**Judge walkthrough.** Open **Your incident**, change the sample trace to any synthetic error message, and run at **1 hop**. The graph cannot reach the gateway. Run the same input at **2 hops** and inspect the live dependency path, Gemini selection, and the MCP result containing your own text. Switch to **Example replays** for the fixed cases.
+
 The public demo uses Gemini 3.5 Flash-Lite for live decisions. The benchmark below used Qwen 2.5 1.5B.
 
 ## Submission description
 
-An on-call engineer can replay an ambiguous alert and get the first useful diagnostic check. Incident Triage runs self-hosted HydraDB inside the Vercel container. It resolves the alerted service and traverses dependencies, runbooks, skills and tool definitions. The agent receives only eligible diagnostics with resolved argument values. It executes a read-only MCP tool and shows the graph path, arguments and observed result.
+An on-call engineer can enter an alert and telemetry or replay an example to get the first useful diagnostic check. Incident Triage runs self-hosted HydraDB inside the Vercel container. It resolves the alerted service and traverses dependencies, runbooks, skills and tool definitions. The agent receives only eligible diagnostics with resolved argument values. It executes a read-only MCP tool and shows the graph path, arguments and observed result.
 
 We compared full-catalog prompting, flat BM25, a frozen graph and feedback-enabled retrieval using Qwen 2.5 1.5B on 12 synthetic holdouts. Correct first actions rose from 2/12 with the full catalog and 5/12 with flat search to 9/12 with the frozen graph and 12/12 after three rounds of verified feedback. The latter supplied a median of one tool schema versus six when preloading. A second run reproduced the accuracy curve. The held-out replays share scenario families. The Vercel demo rebuilds its graph and loads the verified replay feedback on cold start.
 

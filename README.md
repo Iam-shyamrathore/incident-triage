@@ -4,6 +4,12 @@ Replay an on-call alert and see the first useful diagnostic check. HydraDB resol
 
 Built for HydraDB Hackathon Track 2. [Open the live demo](https://hydradb-incident-triage.vercel.app) or see the [submission packet](docs/SUBMISSION.md). The topology is a subset of [Online Boutique at a pinned revision](https://github.com/GoogleCloudPlatform/microservices-demo/tree/c7cb6d5bfd6ea3aed768634ebbcb98cb7a523712/kubernetes-manifests). The payment gateway, owners, incidents, deployments, labels and telemetry are synthetic.
 
+## Try your own incident
+
+Start in **Your incident**. Edit the alert, choose an alerted service from the live sandbox catalog, and enter a trace, latency, connection status or error count. Measurements enter HydraDB as observations scoped to the current request. The selected MCP tool receives the submitted measurement and reports it with source attribution. Example replays remain available for reproducing the benchmark.
+
+With the editable checkout sample, run **1 hop** and observe that the payment gateway is outside the graph scope. Set **2 hops**, change the failed-span text and rerun. The returned trace should contain exactly the new sample, with the path from Checkout through Payments to the gateway. The sandbox exposes the seeded Online Boutique dependency catalog and accepts submitted telemetry. Use synthetic or sanitized measurements.
+
 ## Architecture
 
 ```text
@@ -15,7 +21,7 @@ API → HydraDB HTTP → bounded context packet → one model decision → MCP t
 
 The app keeps a live MCP stdio session. Startup compares the schemas discovered by `tools/list` with the definitions stored in HydraDB. Graph routing uses typed and directed traversal for candidate eligibility. The displayed dependency hops come from `algo.SPpaths`, and the remaining nodes come from the typed Cypher match. A graph read failure fails the replay.
 
-Feedback is written as one stable graph event per verified training incident and run. Later requests read relevant earlier confirmations by alert service, symptom and skill. Repeated confirmations can narrow the shortlist when the leading candidate is supported by the strongest current observation. The agent still evaluates whether to execute the check. The public API accepts replay cases and issues read-only MCP calls.
+Feedback is written as one stable graph event per verified training incident and run. Later requests read relevant earlier confirmations by alert service, symptom and skill. Repeated confirmations can narrow the shortlist when the leading candidate is supported by the strongest current observation. The agent still evaluates whether to execute the check. The public API accepts fixed replays and sandbox incidents. Diagnostic MCP calls are read-only.
 
 ## Run with Docker Compose
 
@@ -77,7 +83,7 @@ The fixture has 12 held-out replays drawn from shared synthetic scenario familie
 
 ## Vercel replay deployment
 
-The Vercel Container runtime builds the root Dockerfile. An instance runs the API, MCP replay server and pinned HydraDB engine together. The public API reads a fixed set of incidents. Each fresh container seeds a local graph under its temporary directory and loads the earlier verified replay outcomes into HydraDB. This gives the demo the same learned state after every cold start. An open-ended production workflow that accepts new feedback would need a persistent storage backend.
+The Vercel Container runtime builds the root Dockerfile. An instance runs the API, MCP replay server and pinned HydraDB engine together. The public API serves example replays and temporary custom incidents. Each fresh container seeds a local graph under its temporary directory and loads the earlier verified replay outcomes into HydraDB. This gives the demo the same learned state after every cold start. An open-ended production workflow that accepts new feedback would need a persistent storage backend.
 
 The production app uses Gemini 3.5 Flash-Lite. The benchmark above uses Qwen 2.5 1.5B.
 

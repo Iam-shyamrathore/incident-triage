@@ -1,5 +1,7 @@
 import json
+import logging
 from collections import defaultdict
+from contextlib import asynccontextmanager
 from uuid import uuid4
 
 import httpx
@@ -16,6 +18,8 @@ from .catalog import (
     stable_id,
 )
 from .config import SEED_VERSION
+
+LOG = logging.getLogger(__name__)
 
 
 class GraphError(RuntimeError):
@@ -121,7 +125,9 @@ class Graph:
         )
         return rows[0] if len(rows) == 1 else None
 
-    async def actions(self, service):
+    async def actions(self, service, hop_limit=3):
+        if hop_limit not in range(4):
+            raise ValueError("Dependency depth must be between 0 and 3.")
         projection = (
             "(u:Service)-[:HAS_RUNBOOK]->(r:Runbook)-[:DEFINES_SKILL]->(k:Skill)"
             "-[:USES_TOOL]->(t:Tool)-[:SERVED_BY]->(m:McpServer) "
@@ -133,13 +139,63 @@ class Graph:
             "t.id AS tool_id, t.key AS tool, t.definition AS definition, m.id AS server_id, m.name AS server"
         )
         local = f"MATCH {projection} WHERE u.id = $id {columns}"
-        upstream = (
-            f"MATCH (s:Service {{id: $id}})-[:DEPENDS_ON*1..3]->{projection} {columns}"
-        )
-        rows, _ = await self.query(f"{local} UNION {upstream}", {"id": service["id"]})
+        statement = local
+        if hop_limit:
+            upstream = f"MATCH (s:Service {{id: $id}})-[:DEPENDS_ON*1..{hop_limit}]->{projection} {columns}"
+            statement = f"{local} UNION {upstream}"
+        rows, _ = await self.query(statement, {"id": service["id"]})
         for row in rows:
             row["definition"] = json.loads(row["definition"])
         return rows
+
+    @asynccontextmanager
+    async def custom_incident(self, case):
+        incident = stable_id("incident", case["id"])
+        signals = [
+            {
+                "id": stable_id("signal", case["id"], str(index)),
+                "scope": incident,
+                **{key: value for key, value in signal.items() if key != "service"},
+            }
+            for index, signal in enumerate(case["signals"])
+        ]
+        if not signals:
+            yield
+            return
+        try:
+            await self.upsert(
+                "Incident",
+                [
+                    {
+                        "id": incident,
+                        "key": case["id"],
+                        "environment": case["environment"],
+                        "observed": case["at"],
+                    }
+                ],
+            )
+            await self.upsert("Signal", signals)
+            await self.edges(
+                "ABOUT",
+                [
+                    {"src": row["id"], "dst": stable_id("service", signal["service"])}
+                    for row, signal in zip(signals, case["signals"], strict=True)
+                ],
+            )
+            await self.edges(
+                "HAS_SIGNAL", [{"src": incident, "dst": row["id"]} for row in signals]
+            )
+            yield
+        finally:
+            try:
+                await self.query(
+                    "MATCH (s:Signal {scope: $id}) DETACH DELETE s", {"id": incident}
+                )
+                await self.query(
+                    "MATCH (i:Incident {id: $id}) DETACH DELETE i", {"id": incident}
+                )
+            except GraphError:
+                LOG.warning("HydraDB could not clean up a completed sandbox request")
 
     async def observations(self, replay):
         params = {
@@ -201,14 +257,14 @@ class Graph:
             "CORRECT_FOR", [{"src": event_id, "dst": stable_id("skill", service, tool)}]
         )
 
-    async def evidence(self, start, action):
+    async def evidence(self, start, action, hop_limit=3):
         details = []
         if start["id"] != action["service_id"]:
             # Procedure arguments are constructed only from graph-returned integer IDs.
             src, dst = int(start["id"]), int(action["service_id"])
             rows, _ = await self.query(
                 f"CALL algo.SPpaths({{sourceNode: {src}, targetNode: {dst}, "
-                "relTypes: ['DEPENDS_ON'], relDirection: 'outgoing', maxLen: 3, pathCount: 1}) "
+                f"relTypes: ['DEPENDS_ON'], relDirection: 'outgoing', maxLen: {int(hop_limit)}, pathCount: 1}}) "
                 "YIELD path RETURN path"
             )
             if not rows:

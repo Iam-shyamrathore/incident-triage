@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import os
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, nullcontext
 
 import httpx
 from fastapi import FastAPI, HTTPException
@@ -14,6 +14,7 @@ from .config import ROOT, Settings
 from .decision import Decider, DecisionError
 from .engine import MODES, TriageEngine
 from .graph import Graph, GraphError
+from .incidents import CustomIncident
 from .mcp_client import connect
 from .training import train_round
 
@@ -89,6 +90,14 @@ async def cases():
     ]
 
 
+@app.get("/api/services")
+async def services():
+    rows, _ = await app.state.engine.graph.query(
+        "MATCH (s:Service) RETURN s.key AS key, s.name AS name ORDER BY name"
+    )
+    return rows
+
+
 @app.get("/api/benchmark", include_in_schema=False)
 async def benchmark():
     path = ROOT / "data" / "benchmark.json"
@@ -106,21 +115,36 @@ async def triage(request: ReplayRequest):
         raise HTTPException(422, "Unknown retrieval mode")
     if request.service and request.mode in {"flat", "preload"}:
         raise HTTPException(422, "Service overrides are available in graph modes")
+    return await run_incident(
+        replay, request.mode, service_hint=request.service, alert=request.alert
+    )
+
+
+@app.post("/api/sandbox")
+async def sandbox(request: CustomIncident):
+    return await run_incident(
+        request.as_case(), request.mode, hop_limit=request.hop_limit
+    )
+
+
+async def run_incident(case, mode, **options):
     if app.state.slots.locked():
-        raise HTTPException(429, "The replay runner is busy. Try again in a moment.")
+        raise HTTPException(429, "The incident runner is busy. Try again in a moment.")
+    engine = app.state.engine
+    scope = engine.graph.custom_incident(case) if case.get("custom") else nullcontext()
     async with app.state.slots:
         try:
-            return await app.state.engine.run(
-                replay,
-                request.mode,
-                os.getenv("TRIAGE_FEEDBACK_RUN", "submission"),
-                service_hint=request.service,
-                alert=request.alert,
-            )
+            async with scope:
+                return await engine.run(
+                    case,
+                    mode,
+                    os.getenv("TRIAGE_FEEDBACK_RUN", "submission"),
+                    **options,
+                )
         except (GraphError, DecisionError) as error:
-            LOG.warning("Replay %s is unavailable: %s", request.case, error)
+            LOG.warning("Incident %s is unavailable: %s", case["id"], error)
             raise HTTPException(
-                503, "The graph or configured model could not complete this replay."
+                503, "The graph or configured model could not complete this incident."
             ) from None
         except RuntimeError:
             LOG.exception("Replay tool failed")

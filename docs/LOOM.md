@@ -1,43 +1,39 @@
 # Loom walkthrough · Incident Triage
 
-Target length **2 minutes 30 seconds**. Start on the live replay page. Briefly run the app before recording so a cold start fits the walkthrough.
+Target length **2 minutes 30 seconds**. Start on the [live workbench](https://hydradb-incident-triage.vercel.app). Run the demo once before recording so a cold start fits the walkthrough.
 
 ## 0:00–0:20 · The problem
 
-**Show** The demo home with Checkout 5xx selected.
+**Show** The editable alert and evidence in **Your incident**.
 
-> Checkout is throwing errors. If you’re on call, you have to work out whether to inspect Checkout, Payments, Shipping, or something further upstream. Incident Triage gives that engineer a first diagnostic action and the evidence behind it. This is our HydraDB Track 2 build.
+> Checkout is throwing errors. The on-call engineer has to pick which service to inspect first. This workbench uses a dependency graph to find the relevant diagnostic and show the evidence behind it.
 
-## 0:20–0:55 · Run the replay
+## 0:20–1:05 · Change the graph scope
 
-**Show** Select **HydraDB with feedback** and click **Run triage**. Point to the tool finding before expanding the raw result.
+**Show** Edit the failed-trace value. For example, enter **Gateway returned SAMPLE-503 after handshake**. Set **Dependency depth** to **1 hop** and click **Run triage**. Expand **Services HydraDB reached**.
 
-> We resolve Checkout in HydraDB and traverse Checkout, Payments and the payment gateway. The traversal also retrieves the gateway’s runbook, diagnostic skill and registered MCP tool. The selected action checks failed gateway traces. The replay tool reports that the upstream span ended with UNAVAILABLE.
+> I entered my own measurement from the payment gateway. At one hop the gateway is outside the reachable set, so the app abstains.
 
-**Show** Scroll down the evidence path and open **Agent context** and **MCP result**.
+**Show** Change to **2 hops**, run again, and expand **MCP result**.
 
-> This path comes from live HydraDB queries. The tool was called through MCP with the service and observation window already bound. You can see which schemas were supplied and inspect the actual response.
+> Now the real HydraDB traversal reaches Checkout → Payments → Payment gateway. The graph provides the diagnostic skill and its tool definition. Gemini selects it, and the read-only MCP result contains the exact text I supplied.
 
-## 0:55–1:20 · Show a different route
+## 1:05–1:30 · Change the evidence
 
-**Show** Choose **Cart connection timeouts** and run it.
+**Show** Keep Checkout as the alerted service. Set the evidence service to **Cart Redis**, the measurement to **Dependency health**, and the value to **Unavailable**. Run again at two hops.
 
-> The alerted service is still Checkout, but the observations are different. The graph traversal and evidence lead to Cart Redis and a dependency health check. The MCP response shows unavailable connections. The incident observations and tool responses in this sandbox are synthetic.
+> The alert is still from Checkout. Changing the evidence changes which service and tool the agent checks. This graph is seeded from an Online Boutique topology. These are test measurements supplied in the workbench.
 
-## 1:20–1:55 · Benchmark and learning
+## 1:30–2:05 · Show the learning evaluation
 
-**Show** Scroll to **Benchmark** and highlight the routing table and learning checkpoints.
+**Show** Scroll to **Benchmark**. Highlight the scoring table and learning checkpoints.
 
-> We evaluated the exact first diagnostic action, its service and arguments, and whether the tool actually returned evidence. On 12 synthetic holdouts, all-tools prompting got 2 correct, flat search got 5, and the frozen HydraDB graph got 9. We wrote earlier verified outcomes into HydraDB. Across three rounds on the same holdout, the result went from 9 to 9, then 10, then 12. The learned context supplied a median of one schema versus six when preloading. These are results on this replay fixture, whose cases share scenario families.
+> We evaluated the exact first action, its service and arguments, and whether the tool returned evidence. On 12 synthetic holdouts, all-tools prompting got 2 correct, flat search got 5, and the frozen graph got 9. Writing earlier verified outcomes into HydraDB increased that from 9 to 9, then 10, then 12 over three rounds. The learned context supplied a median of one tool schema versus six when preloading.
 
-**Show** Briefly open **View raw benchmark JSON** if time allows.
+> The workbench runs Gemini 3.5 Flash-Lite. That benchmark used Qwen 2.5 1.5B across all strategies, and its synthetic holdouts share scenario families.
 
-## 1:55–2:30 · Deployment and buyer
+## 2:05–2:30 · Buyer and deployment
 
-**Show** Return to the demo or GitHub README.
+**Show** The live URL or the repository.
 
-> The public app runs the HydraDB engine inside a Vercel container. Each new instance seeds the same graph and loads the verified feedback. The product would sit alongside an SRE team’s on-call tooling. Our first pilot would use a team’s sanitized incidents to test whether we cut time to the first correct check. The live demo, source and raw results are linked in the submission.
-
-Point to **Routing** after the replay.
-
-> The live demo uses Gemini 3.5 Flash-Lite. The benchmark used Qwen 2.5 1.5B for all four compared strategies.
+> Vercel hosts both the workbench and the self-hosted HydraDB engine. The first customer would be a platform engineering team with an on-call rotation. We’d replay their sanitized incidents to see whether this cuts time to the first correct diagnostic. The live URL, source, and raw benchmark are linked in the submission.
