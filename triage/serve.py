@@ -96,6 +96,7 @@ def main():
                 if k
                 not in {
                     "TRIAGE_VERTEX_CREDENTIALS",
+                    "TRIAGE_VERTEX_API_KEY",
                     "TRIAGE_MODEL_KEY",
                     "INFERENCE_KEY",
                 }

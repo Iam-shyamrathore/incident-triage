@@ -16,7 +16,9 @@ class Decider:
         self.settings = settings
         self.http = http
         self.vertex = (
-            VertexModel(settings, http) if settings.vertex_credentials else None
+            VertexModel(settings, http)
+            if settings.vertex_api_key or settings.vertex_credentials
+            else None
         )
 
     async def choose(self, alert, observations, actions, definitions):

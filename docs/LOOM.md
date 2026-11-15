@@ -38,4 +38,6 @@ Target length **2 minutes 30 seconds**. Start on the live replay page. Briefly r
 
 > The public app runs the HydraDB engine inside a Vercel container. Each new instance seeds the same graph and loads the verified feedback. The product would sit alongside an SRE team’s on-call tooling. Our first pilot would use a team’s sanitized incidents to test whether we cut time to the first correct check. The live demo, source and raw results are linked in the submission.
 
-Read the **Routing** field before recording. If the public demo shows **Ranked**, say “This public replay uses graph ranking. The benchmark used the Qwen model shown above the table.” If the demo shows Gemini, say which Gemini model is running and attribute the benchmark to the model above its table.
+Point to **Routing** after the replay.
+
+> The live demo uses Gemini 3.5 Flash-Lite. The benchmark used Qwen 2.5 1.5B for all four compared strategies.

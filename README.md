@@ -79,7 +79,9 @@ The fixture has 12 held-out replays drawn from shared synthetic scenario familie
 
 The Vercel Container runtime builds the root Dockerfile. An instance runs the API, MCP replay server and pinned HydraDB engine together. The public API reads a fixed set of incidents. Each fresh container seeds a local graph under its temporary directory and loads the earlier verified replay outcomes into HydraDB. This gives the demo the same learned state after every cold start. An open-ended production workflow that accepts new feedback would need a persistent storage backend.
 
-For Gemini on Vertex AI, set the **server-only** variable `TRIAGE_VERTEX_CREDENTIALS` to a service-account JSON with access to an enabled Vertex AI project. The provider defaults to `gemini-2.5-flash-lite` in `global`. To run locally with a file, set `GOOGLE_APPLICATION_CREDENTIALS` instead. Never copy either credential into the repository. [Vertex AI authentication](https://docs.cloud.google.com/vertex-ai/docs/authentication)
+The production app uses Gemini 3.5 Flash-Lite. The benchmark above uses Qwen 2.5 1.5B.
+
+For Vertex AI Express, set the **server-only** variable `TRIAGE_VERTEX_API_KEY`. For standard Vertex AI, set `TRIAGE_VERTEX_CREDENTIALS` to a service-account JSON with access to an enabled Vertex project, or point `GOOGLE_APPLICATION_CREDENTIALS` to a credentials file for local runs. The provider defaults to `gemini-3.5-flash-lite`. Set `TRIAGE_MODEL` to override it. Keep credentials out of the repository. [Vertex AI Express authentication](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/express-mode/api-reference)
 
 ```sh
 vercel deploy --prod --env PORT=8080 --env TRIAGE_EPHEMERAL_REPLAY=1

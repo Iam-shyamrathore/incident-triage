@@ -3,12 +3,14 @@ import json
 from types import SimpleNamespace
 
 import httpx
+import pytest
 
 from triage.decision import Decider
 from triage.vertex import service_account
 
 
-def test_vertex_uses_oauth_and_validates_structured_action(monkeypatch):
+@pytest.mark.parametrize("express", [False, True])
+def test_vertex_authenticates_and_validates_structured_action(monkeypatch, express):
     credentials = SimpleNamespace(valid=True, token="test-oauth-token")
     monkeypatch.setattr(
         service_account.Credentials,
@@ -16,18 +18,26 @@ def test_vertex_uses_oauth_and_validates_structured_action(monkeypatch):
         lambda *_args, **_kw: credentials,
     )
     settings = SimpleNamespace(
+        vertex_api_key="test-api-key" if express else "",
         vertex_credentials='{"project_id":"test-project"}',
         vertex_project="",
         vertex_location="global",
-        model="gemini-2.5-flash-lite",
+        model="gemini-3.5-flash-lite",
         decision_mode="model",
         model_configured=True,
     )
 
     def respond(request):
         assert request.url.host == "aiplatform.googleapis.com"
-        assert request.url.path.endswith("/gemini-2.5-flash-lite:generateContent")
-        assert request.headers.get("Authorization") == "Bearer test-oauth-token"
+        assert request.url.path.endswith("/gemini-3.5-flash-lite:generateContent")
+        if express:
+            assert request.url.path.startswith("/v1/publishers/")
+            assert request.headers.get("x-goog-api-key") == "test-api-key"
+            assert "Authorization" not in request.headers
+        else:
+            assert request.url.path.startswith("/v1/projects/test-project/")
+            assert request.headers.get("Authorization") == "Bearer test-oauth-token"
+            assert "x-goog-api-key" not in request.headers
         body = json.loads(request.content)
         assert (
             body["generationConfig"]["responseSchema"]["properties"]["action"][

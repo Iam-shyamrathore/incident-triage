@@ -5,7 +5,7 @@
 - **Loom** Paste the recording URL after following the [recording script](LOOM.md).
 - **Benchmark evidence** [Raw replay and load results](https://hydradb-incident-triage.vercel.app/api/benchmark)
 
-The public demo currently uses deterministic graph ranking to select from the eligible actions. It runs live HydraDB queries and MCP tools. The benchmark below used Qwen.
+The public demo uses Gemini 3.5 Flash-Lite for live decisions. The benchmark below used Qwen 2.5 1.5B.
 
 ## Submission description
 
