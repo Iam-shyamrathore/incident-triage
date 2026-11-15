@@ -2,7 +2,7 @@
 
 Replay an on-call alert and see the first useful diagnostic check. HydraDB resolves the service, traverses dependencies, and retrieves the runbook, skill, tool schema and MCP server. The agent receives a bounded packet and selects one read-only diagnostic or abstains. The web UI shows the graph path, selected arguments and observed tool response.
 
-Built for HydraDB Hackathon Track 2. [Open the live demo](https://hydradb-incident-triage.vercel.app) or see the [submission packet](docs/SUBMISSION.md). The topology is a subset of [Online Boutique at a pinned revision](https://github.com/GoogleCloudPlatform/microservices-demo/tree/c7cb6d5bfd6ea3aed768634ebbcb98cb7a523712/kubernetes-manifests). The payment gateway, owners, incidents, deployments, labels and telemetry are synthetic.
+Built for HydraDB Hackathon Track 2. [Open the live demo](https://hydradb-incident-triage.vercel.app). The topology is a subset of [Online Boutique at a pinned revision](https://github.com/GoogleCloudPlatform/microservices-demo/tree/c7cb6d5bfd6ea3aed768634ebbcb98cb7a523712/kubernetes-manifests). The payment gateway, owners, incidents, deployments, labels and telemetry are synthetic.
 
 ## Try your own incident
 
