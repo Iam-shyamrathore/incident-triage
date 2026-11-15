@@ -5,6 +5,8 @@
 - **Loom** Paste the recording URL after following the [recording script](LOOM.md).
 - **Benchmark evidence** [Raw replay and load results](https://hydradb-incident-triage.vercel.app/api/benchmark)
 
+The public demo currently uses deterministic graph ranking to select from the eligible actions. It runs live HydraDB queries and MCP tools. The benchmark below used Qwen.
+
 ## Submission description
 
 An on-call engineer can replay an ambiguous alert and get the first useful diagnostic check. Incident Triage runs self-hosted HydraDB inside the Vercel container. It resolves the alerted service and traverses dependencies, runbooks, skills and tool definitions. The agent receives only eligible diagnostics with resolved argument values. It executes a read-only MCP tool and shows the graph path, arguments and observed result.
@@ -38,7 +40,7 @@ Teams already pay for incident coordination and diagnostic context. Rootly’s c
 >
 > Source https://github.com/Iam-shyamrathore/incident-triage
 
-Tag the official HydraDB company page when posting on LinkedIn. Add the social post URLs to the submission if the form requests them.
+Tag the [official HydraDB company page](https://www.linkedin.com/company/hydradb) when posting on LinkedIn. Add the social post URLs to the submission if the form requests them.
 
 ## Final checklist
 
@@ -46,4 +48,4 @@ Tag the official HydraDB company page when posting on LinkedIn. Add the social p
 - Verify the public GitHub repo and benchmark JSON open without authentication.
 - Record the Loom and paste its viewable URL into the form.
 - Publish the social posts and tag HydraDB.
-- Submit the live URL, source URL and Loom URL through the organizer’s form.
+- Submit the live URL, source URL and Loom URL through the organizer’s form. [Event listing](https://luma.com/bqwllms4)
