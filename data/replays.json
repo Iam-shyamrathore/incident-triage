@@ -1,0 +1,1680 @@
+[
+  {
+    "id": "gateway-01",
+    "title": "Gateway 01",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "train",
+    "batch": 1,
+    "alert": "Checkout requests are returning 5xx.",
+    "at": 220,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "request failures rose at checkout",
+        "severity": 9,
+        "observed": 217,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "upstream requests to the gateway are failing",
+        "severity": 10,
+        "observed": 216,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "deploy",
+        "text": "a shipping release completed",
+        "severity": 3,
+        "observed": 215,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 218,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 140,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 212,
+        "key": "checkoutservice-r16"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 211,
+        "key": "payment-gateway-r16"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 210,
+        "key": "shippingservice-r16"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 63,
+        "sampled_requests": 500,
+        "log": "request failures rose at checkout"
+      },
+      "payment-gateway": {
+        "failed_requests": 70,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE",
+        "log": "upstream requests to the gateway are failing"
+      },
+      "shippingservice": {
+        "release": "shippingservice-r16",
+        "log": "a shipping release completed"
+      }
+    }
+  },
+  {
+    "id": "redis-01",
+    "title": "Redis 01",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "connections",
+    "split": "train",
+    "batch": 1,
+    "alert": "Checkout is timing out while reading the cart.",
+    "at": 265,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "cartservice",
+        "kind": "health",
+        "text": "cart service reports connection timeouts",
+        "severity": 8,
+        "observed": 262,
+        "environment": "production"
+      },
+      {
+        "service": "redis-cart",
+        "kind": "health",
+        "text": "cart cache reports unavailable connections",
+        "severity": 14,
+        "observed": 261,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "latency",
+        "text": "gateway latency is elevated",
+        "severity": 4,
+        "observed": 260,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 263,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 185,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "cartservice",
+        "environment": "production",
+        "at": 257,
+        "key": "cartservice-r17"
+      },
+      {
+        "service": "redis-cart",
+        "environment": "production",
+        "at": 256,
+        "key": "redis-cart-r17"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 255,
+        "key": "payment-gateway-r17"
+      }
+    ],
+    "telemetry": {
+      "cartservice": {
+        "connection_status": "degraded",
+        "log": "cart service reports connection timeouts"
+      },
+      "redis-cart": {
+        "connection_status": "unavailable",
+        "log": "cart cache reports unavailable connections"
+      },
+      "payment-gateway": {
+        "p95_ms": 397,
+        "log": "gateway latency is elevated"
+      }
+    }
+  },
+  {
+    "id": "gateway-02",
+    "title": "Gateway 02",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "train",
+    "batch": 2,
+    "alert": "Checkout requests are returning 5xx.",
+    "at": 310,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "request failures rose at checkout",
+        "severity": 9,
+        "observed": 307,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "upstream requests to the gateway are failing",
+        "severity": 10,
+        "observed": 306,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "deploy",
+        "text": "a shipping release completed",
+        "severity": 3,
+        "observed": 305,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 308,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 230,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 302,
+        "key": "checkoutservice-r18"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 301,
+        "key": "payment-gateway-r18"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 300,
+        "key": "shippingservice-r18"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 65,
+        "sampled_requests": 500,
+        "log": "request failures rose at checkout"
+      },
+      "payment-gateway": {
+        "failed_requests": 72,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE",
+        "log": "upstream requests to the gateway are failing"
+      },
+      "shippingservice": {
+        "release": "shippingservice-r18",
+        "log": "a shipping release completed"
+      }
+    }
+  },
+  {
+    "id": "shipping-01",
+    "title": "Shipping 01",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "train",
+    "batch": 2,
+    "alert": "Orders fail at checkout before confirmation.",
+    "at": 355,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "checkout failures rose",
+        "severity": 8,
+        "observed": 352,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "quote service reports a rising failure rate",
+        "severity": 12,
+        "observed": 351,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "gateway reported intermittent errors",
+        "severity": 7,
+        "observed": 350,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 353,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 275,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 347,
+        "key": "checkoutservice-r19"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 346,
+        "key": "shippingservice-r19"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 345,
+        "key": "payment-gateway-r19"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 52,
+        "sampled_requests": 500,
+        "log": "checkout failures rose"
+      },
+      "shippingservice": {
+        "failed_requests": 80,
+        "sampled_requests": 500,
+        "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE",
+        "log": "quote service reports a rising failure rate"
+      },
+      "payment-gateway": {
+        "failed_requests": 45,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: gateway reported intermittent errors; upstream span ended with UNAVAILABLE",
+        "log": "gateway reported intermittent errors"
+      }
+    }
+  },
+  {
+    "id": "gateway-03",
+    "title": "Gateway 03",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "train",
+    "batch": 3,
+    "alert": "Checkout requests are returning 5xx.",
+    "at": 400,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "request failures rose at checkout",
+        "severity": 9,
+        "observed": 397,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "upstream requests to the gateway are failing",
+        "severity": 10,
+        "observed": 396,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "deploy",
+        "text": "a shipping release completed",
+        "severity": 3,
+        "observed": 395,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 398,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 320,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 392,
+        "key": "checkoutservice-r20"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 391,
+        "key": "payment-gateway-r20"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 390,
+        "key": "shippingservice-r20"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 67,
+        "sampled_requests": 500,
+        "log": "request failures rose at checkout"
+      },
+      "payment-gateway": {
+        "failed_requests": 74,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE",
+        "log": "upstream requests to the gateway are failing"
+      },
+      "shippingservice": {
+        "release": "shippingservice-r20",
+        "log": "a shipping release completed"
+      }
+    }
+  },
+  {
+    "id": "redis-02",
+    "title": "Redis 02",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "connections",
+    "split": "train",
+    "batch": 3,
+    "alert": "Checkout is timing out while reading the cart.",
+    "at": 445,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "cartservice",
+        "kind": "health",
+        "text": "cart service reports connection timeouts",
+        "severity": 8,
+        "observed": 442,
+        "environment": "production"
+      },
+      {
+        "service": "redis-cart",
+        "kind": "health",
+        "text": "cart cache reports unavailable connections",
+        "severity": 14,
+        "observed": 441,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "latency",
+        "text": "gateway latency is elevated",
+        "severity": 4,
+        "observed": 440,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 443,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 365,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "cartservice",
+        "environment": "production",
+        "at": 437,
+        "key": "cartservice-r21"
+      },
+      {
+        "service": "redis-cart",
+        "environment": "production",
+        "at": 436,
+        "key": "redis-cart-r21"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 435,
+        "key": "payment-gateway-r21"
+      }
+    ],
+    "telemetry": {
+      "cartservice": {
+        "connection_status": "degraded",
+        "log": "cart service reports connection timeouts"
+      },
+      "redis-cart": {
+        "connection_status": "unavailable",
+        "log": "cart cache reports unavailable connections"
+      },
+      "payment-gateway": {
+        "p95_ms": 397,
+        "log": "gateway latency is elevated"
+      }
+    }
+  },
+  {
+    "id": "checkout-amber",
+    "title": "Checkout 5xx",
+    "public": true,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Checkout requests are returning 5xx.",
+    "at": 490,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "request failures rose at checkout",
+        "severity": 9,
+        "observed": 487,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "upstream requests to the gateway are failing",
+        "severity": 10,
+        "observed": 486,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "deploy",
+        "text": "a shipping release completed",
+        "severity": 3,
+        "observed": 485,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 488,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 410,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 482,
+        "key": "checkoutservice-r22"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 481,
+        "key": "payment-gateway-r22"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 480,
+        "key": "shippingservice-r22"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 69,
+        "sampled_requests": 500,
+        "log": "request failures rose at checkout"
+      },
+      "payment-gateway": {
+        "failed_requests": 76,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE",
+        "log": "upstream requests to the gateway are failing"
+      },
+      "shippingservice": {
+        "release": "shippingservice-r22",
+        "log": "a shipping release completed"
+      }
+    }
+  },
+  {
+    "id": "checkout-cobalt",
+    "title": "Order confirmation failures",
+    "public": true,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Orders fail at checkout before confirmation.",
+    "at": 535,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "checkout failures rose",
+        "severity": 8,
+        "observed": 532,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "quote service reports a rising failure rate",
+        "severity": 12,
+        "observed": 531,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "gateway reported intermittent errors",
+        "severity": 7,
+        "observed": 530,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 533,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 455,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 527,
+        "key": "checkoutservice-r23"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 526,
+        "key": "shippingservice-r23"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 525,
+        "key": "payment-gateway-r23"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 56,
+        "sampled_requests": 500,
+        "log": "checkout failures rose"
+      },
+      "shippingservice": {
+        "failed_requests": 84,
+        "sampled_requests": 500,
+        "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE",
+        "log": "quote service reports a rising failure rate"
+      },
+      "payment-gateway": {
+        "failed_requests": 49,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: gateway reported intermittent errors; upstream span ended with UNAVAILABLE",
+        "log": "gateway reported intermittent errors"
+      }
+    }
+  },
+  {
+    "id": "cart-slate",
+    "title": "Cart connection timeouts",
+    "public": true,
+    "service": "checkoutservice",
+    "symptom": "connections",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Checkout is timing out while reading the cart.",
+    "at": 580,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "cartservice",
+        "kind": "health",
+        "text": "cart service reports connection timeouts",
+        "severity": 7,
+        "observed": 577,
+        "environment": "production"
+      },
+      {
+        "service": "redis-cart",
+        "kind": "health",
+        "text": "cart cache reports unavailable connections",
+        "severity": 13,
+        "observed": 576,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "latency",
+        "text": "gateway latency is elevated",
+        "severity": 3,
+        "observed": 575,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 578,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 500,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "cartservice",
+        "environment": "production",
+        "at": 572,
+        "key": "cartservice-r24"
+      },
+      {
+        "service": "redis-cart",
+        "environment": "production",
+        "at": 571,
+        "key": "redis-cart-r24"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 570,
+        "key": "payment-gateway-r24"
+      }
+    ],
+    "telemetry": {
+      "cartservice": {
+        "connection_status": "degraded",
+        "log": "cart service reports connection timeouts"
+      },
+      "redis-cart": {
+        "connection_status": "unavailable",
+        "log": "cart cache reports unavailable connections"
+      },
+      "payment-gateway": {
+        "p95_ms": 397,
+        "log": "gateway latency is elevated"
+      }
+    }
+  },
+  {
+    "id": "catalog-coral",
+    "title": "Slow product lookups",
+    "public": true,
+    "service": "productcatalogservice",
+    "symptom": "latency",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Product lookups are slower than usual.",
+    "at": 625,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "productcatalogservice",
+        "kind": "latency",
+        "text": "catalog lookups show elevated tail latency",
+        "severity": 12,
+        "observed": 622,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 4,
+        "observed": 621,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 623,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 545,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 617,
+        "key": "productcatalogservice-r25"
+      }
+    ],
+    "telemetry": {
+      "productcatalogservice": {
+        "p95_ms": 949,
+        "log": "a catalog rollout completed",
+        "release": "productcatalogservice-r25"
+      }
+    }
+  },
+  {
+    "id": "recommendations-fern",
+    "title": "Recommendations Fern",
+    "public": false,
+    "service": "recommendationservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Recommendations return 5xx for several requests.",
+    "at": 670,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "recommendationservice",
+        "kind": "error_counter",
+        "text": "recommendation requests are failing",
+        "severity": 10,
+        "observed": 667,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 4,
+        "observed": 666,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 668,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 590,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "recommendationservice",
+        "environment": "production",
+        "at": 662,
+        "key": "recommendationservice-r26"
+      },
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 661,
+        "key": "productcatalogservice-r26"
+      }
+    ],
+    "telemetry": {
+      "recommendationservice": {
+        "failed_requests": 80,
+        "sampled_requests": 500,
+        "log": "recommendation requests are failing"
+      },
+      "productcatalogservice": {
+        "release": "productcatalogservice-r26",
+        "log": "a catalog rollout completed"
+      }
+    }
+  },
+  {
+    "id": "checkout-missing",
+    "title": "Alert without fresh evidence",
+    "public": true,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Checkout alert came through without any fresh observations.",
+    "at": 715,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 713,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 635,
+        "environment": "production"
+      }
+    ],
+    "deployments": [],
+    "telemetry": {}
+  },
+  {
+    "id": "checkout-crimson",
+    "title": "Checkout Crimson",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Intermittent server errors during checkout.",
+    "at": 760,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "request failures rose at checkout",
+        "severity": 9,
+        "observed": 757,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "upstream requests to the gateway are failing",
+        "severity": 10,
+        "observed": 756,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "deploy",
+        "text": "a shipping release completed",
+        "severity": 3,
+        "observed": 755,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 758,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 680,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 752,
+        "key": "checkoutservice-r28"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 751,
+        "key": "payment-gateway-r28"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 750,
+        "key": "shippingservice-r28"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 75,
+        "sampled_requests": 500,
+        "log": "request failures rose at checkout"
+      },
+      "payment-gateway": {
+        "failed_requests": 82,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE",
+        "log": "upstream requests to the gateway are failing"
+      },
+      "shippingservice": {
+        "release": "shippingservice-r28",
+        "log": "a shipping release completed"
+      }
+    }
+  },
+  {
+    "id": "checkout-gold",
+    "title": "Checkout Gold",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Checkout requests return a server error before confirmation.",
+    "at": 805,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "checkoutservice",
+        "kind": "error_counter",
+        "text": "checkout failures rose",
+        "severity": 8,
+        "observed": 802,
+        "environment": "production"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "quote service reports a rising failure rate",
+        "severity": 12,
+        "observed": 801,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "error_counter",
+        "text": "gateway reported intermittent errors",
+        "severity": 7,
+        "observed": 800,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 803,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 725,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "checkoutservice",
+        "environment": "production",
+        "at": 797,
+        "key": "checkoutservice-r29"
+      },
+      {
+        "service": "shippingservice",
+        "environment": "production",
+        "at": 796,
+        "key": "shippingservice-r29"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 795,
+        "key": "payment-gateway-r29"
+      }
+    ],
+    "telemetry": {
+      "checkoutservice": {
+        "failed_requests": 62,
+        "sampled_requests": 500,
+        "log": "checkout failures rose"
+      },
+      "shippingservice": {
+        "failed_requests": 90,
+        "sampled_requests": 500,
+        "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE",
+        "log": "quote service reports a rising failure rate"
+      },
+      "payment-gateway": {
+        "failed_requests": 55,
+        "sampled_requests": 500,
+        "trace": "payment-gateway: gateway reported intermittent errors; upstream span ended with UNAVAILABLE",
+        "log": "gateway reported intermittent errors"
+      }
+    }
+  },
+  {
+    "id": "cart-birch",
+    "title": "Cart Birch",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "connections",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Cart lookups time out and block checkout.",
+    "at": 850,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "cartservice",
+        "kind": "health",
+        "text": "cart service reports connection timeouts",
+        "severity": 7,
+        "observed": 847,
+        "environment": "production"
+      },
+      {
+        "service": "redis-cart",
+        "kind": "health",
+        "text": "cart cache reports unavailable connections",
+        "severity": 13,
+        "observed": 846,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "latency",
+        "text": "gateway latency is elevated",
+        "severity": 3,
+        "observed": 845,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 848,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 770,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "cartservice",
+        "environment": "production",
+        "at": 842,
+        "key": "cartservice-r30"
+      },
+      {
+        "service": "redis-cart",
+        "environment": "production",
+        "at": 841,
+        "key": "redis-cart-r30"
+      },
+      {
+        "service": "payment-gateway",
+        "environment": "production",
+        "at": 840,
+        "key": "payment-gateway-r30"
+      }
+    ],
+    "telemetry": {
+      "cartservice": {
+        "connection_status": "degraded",
+        "log": "cart service reports connection timeouts"
+      },
+      "redis-cart": {
+        "connection_status": "unavailable",
+        "log": "cart cache reports unavailable connections"
+      },
+      "payment-gateway": {
+        "p95_ms": 397,
+        "log": "gateway latency is elevated"
+      }
+    }
+  },
+  {
+    "id": "catalog-cyan",
+    "title": "Catalog Cyan",
+    "public": false,
+    "service": "productcatalogservice",
+    "symptom": "latency",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Catalog reads are taking longer than expected.",
+    "at": 895,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "productcatalogservice",
+        "kind": "latency",
+        "text": "catalog lookups show elevated tail latency",
+        "severity": 12,
+        "observed": 892,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 4,
+        "observed": 891,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 893,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 815,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 887,
+        "key": "productcatalogservice-r31"
+      }
+    ],
+    "telemetry": {
+      "productcatalogservice": {
+        "p95_ms": 949,
+        "log": "a catalog rollout completed",
+        "release": "productcatalogservice-r31"
+      }
+    }
+  },
+  {
+    "id": "recommendations-lilac",
+    "title": "Recommendations Lilac",
+    "public": false,
+    "service": "recommendationservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "The recommendations endpoint is dropping requests.",
+    "at": 940,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "recommendationservice",
+        "kind": "error_counter",
+        "text": "recommendation requests are failing",
+        "severity": 10,
+        "observed": 937,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 4,
+        "observed": 936,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 938,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 860,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "recommendationservice",
+        "environment": "production",
+        "at": 932,
+        "key": "recommendationservice-r32"
+      },
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 931,
+        "key": "productcatalogservice-r32"
+      }
+    ],
+    "telemetry": {
+      "recommendationservice": {
+        "failed_requests": 86,
+        "sampled_requests": 500,
+        "log": "recommendation requests are failing"
+      },
+      "productcatalogservice": {
+        "release": "productcatalogservice-r32",
+        "log": "a catalog rollout completed"
+      }
+    }
+  },
+  {
+    "id": "checkout-stale",
+    "title": "Checkout Stale",
+    "public": false,
+    "service": "checkoutservice",
+    "symptom": "errors",
+    "split": "holdout",
+    "batch": 0,
+    "alert": "Checkout error alert with old and staging-only signals.",
+    "at": 985,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 983,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 905,
+        "environment": "production"
+      }
+    ],
+    "deployments": [],
+    "telemetry": {}
+  },
+  {
+    "id": "catalog-01",
+    "title": "Catalog 01",
+    "public": false,
+    "service": "productcatalogservice",
+    "symptom": "latency",
+    "split": "train",
+    "batch": 1,
+    "alert": "Tail latency moved after the inventory refresh.",
+    "at": 235,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "productcatalogservice",
+        "kind": "latency",
+        "text": "catalog lookups show elevated tail latency",
+        "severity": 11,
+        "observed": 232,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 3,
+        "observed": 231,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 233,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 155,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 227,
+        "key": "productcatalogservice-r34"
+      }
+    ],
+    "telemetry": {
+      "productcatalogservice": {
+        "p95_ms": 949,
+        "log": "a catalog rollout completed",
+        "release": "productcatalogservice-r34"
+      }
+    }
+  },
+  {
+    "id": "catalog-02",
+    "title": "Catalog 02",
+    "public": false,
+    "service": "productcatalogservice",
+    "symptom": "latency",
+    "split": "train",
+    "batch": 2,
+    "alert": "Product page lookups are taking a few seconds.",
+    "at": 325,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "productcatalogservice",
+        "kind": "latency",
+        "text": "catalog lookups show elevated tail latency",
+        "severity": 12,
+        "observed": 322,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 4,
+        "observed": 321,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 323,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 245,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 317,
+        "key": "productcatalogservice-r35"
+      }
+    ],
+    "telemetry": {
+      "productcatalogservice": {
+        "p95_ms": 949,
+        "log": "a catalog rollout completed",
+        "release": "productcatalogservice-r35"
+      }
+    }
+  },
+  {
+    "id": "recommendation-01",
+    "title": "Recommendation 01",
+    "public": false,
+    "service": "recommendationservice",
+    "symptom": "errors",
+    "split": "train",
+    "batch": 2,
+    "alert": "The recommendation handler is failing for some requests.",
+    "at": 355,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "recommendationservice",
+        "kind": "error_counter",
+        "text": "recommendation requests are failing",
+        "severity": 10,
+        "observed": 352,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 4,
+        "observed": 351,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 353,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 275,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "recommendationservice",
+        "environment": "production",
+        "at": 347,
+        "key": "recommendationservice-r36"
+      },
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 346,
+        "key": "productcatalogservice-r36"
+      }
+    ],
+    "telemetry": {
+      "recommendationservice": {
+        "failed_requests": 90,
+        "sampled_requests": 500,
+        "log": "recommendation requests are failing"
+      },
+      "productcatalogservice": {
+        "release": "productcatalogservice-r36",
+        "log": "a catalog rollout completed"
+      }
+    }
+  },
+  {
+    "id": "recommendation-02",
+    "title": "Recommendation 02",
+    "public": false,
+    "service": "recommendationservice",
+    "symptom": "errors",
+    "split": "train",
+    "batch": 3,
+    "alert": "The recommendations endpoint has a rising error count.",
+    "at": 455,
+    "environment": "production",
+    "signals": [
+      {
+        "service": "recommendationservice",
+        "kind": "error_counter",
+        "text": "recommendation requests are failing",
+        "severity": 11,
+        "observed": 452,
+        "environment": "production"
+      },
+      {
+        "service": "productcatalogservice",
+        "kind": "deploy",
+        "text": "a catalog rollout completed",
+        "severity": 5,
+        "observed": 451,
+        "environment": "production"
+      },
+      {
+        "service": "payment-gateway",
+        "kind": "deploy",
+        "text": "gateway deployment changed",
+        "severity": 20,
+        "observed": 453,
+        "environment": "staging"
+      },
+      {
+        "service": "shippingservice",
+        "kind": "error_counter",
+        "text": "earlier shipping errors",
+        "severity": 23,
+        "observed": 375,
+        "environment": "production"
+      }
+    ],
+    "deployments": [
+      {
+        "service": "recommendationservice",
+        "environment": "production",
+        "at": 447,
+        "key": "recommendationservice-r37"
+      },
+      {
+        "service": "productcatalogservice",
+        "environment": "production",
+        "at": 446,
+        "key": "productcatalogservice-r37"
+      }
+    ],
+    "telemetry": {
+      "recommendationservice": {
+        "failed_requests": 91,
+        "sampled_requests": 500,
+        "log": "recommendation requests are failing"
+      },
+      "productcatalogservice": {
+        "release": "productcatalogservice-r37",
+        "log": "a catalog rollout completed"
+      }
+    }
+  }
+]

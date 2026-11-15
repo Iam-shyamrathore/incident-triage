@@ -1,0 +1,50 @@
+{
+  "checkout-amber": {
+    "service": "payment-gateway",
+    "tool": "trace_failures"
+  },
+  "checkout-cobalt": {
+    "service": "shippingservice",
+    "tool": "trace_failures"
+  },
+  "cart-slate": {
+    "service": "redis-cart",
+    "tool": "dependency_health"
+  },
+  "catalog-coral": {
+    "service": "productcatalogservice",
+    "tool": "inspect_latency"
+  },
+  "recommendations-fern": {
+    "service": "recommendationservice",
+    "tool": "inspect_errors"
+  },
+  "checkout-missing": {
+    "service": null,
+    "tool": null
+  },
+  "checkout-crimson": {
+    "service": "payment-gateway",
+    "tool": "trace_failures"
+  },
+  "checkout-gold": {
+    "service": "shippingservice",
+    "tool": "trace_failures"
+  },
+  "cart-birch": {
+    "service": "redis-cart",
+    "tool": "dependency_health"
+  },
+  "catalog-cyan": {
+    "service": "productcatalogservice",
+    "tool": "inspect_latency"
+  },
+  "recommendations-lilac": {
+    "service": "recommendationservice",
+    "tool": "inspect_errors"
+  },
+  "checkout-stale": {
+    "service": null,
+    "tool": null
+  }
+}

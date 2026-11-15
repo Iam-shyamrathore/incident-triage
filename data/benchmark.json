@@ -1,0 +1,5806 @@
+{
+  "run": "submission",
+  "metadata": {
+    "created_at": "2026-11-15T18:22:44.187676+00:00",
+    "hydradb": "0.4.0",
+    "seed": "online-boutique-2",
+    "decision": "model",
+    "model": "qwen2.5:1.5b",
+    "data": "Online Boutique manifest subset plus synthetic replay fixtures. Holdouts share scenario families.",
+    "nodes": 260,
+    "edges": 419,
+    "training_cases": 10,
+    "holdout_cases": 12
+  },
+  "modes": [
+    {
+      "label": "All tools",
+      "correct": 2,
+      "total": 12,
+      "errors": 0,
+      "candidate_hits": 12,
+      "tool_observations": 1,
+      "median_schemas": 6.0,
+      "median_schema_bytes": 2294.0,
+      "median_prompt_tokens": 3006.5,
+      "median_calls_before_tool": 1.0,
+      "p50_ms": 5089.3,
+      "p95_ms": 5212.6,
+      "cases": [
+        {
+          "case": "checkout-amber",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 13,
+            "service": "checkoutservice",
+            "service_name": "Checkout",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "checkoutservice-r22",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-amber",
+              "service": "checkoutservice",
+              "observed_at": 490
+            },
+            "owner": "Commerce"
+          },
+          "tool_result": {
+            "service": "checkoutservice",
+            "environment": "production",
+            "observed_at": 490,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "failed_requests": 69,
+              "sampled_requests": 500
+            }
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "list_deployments",
+            "inspect_errors",
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 3007,
+          "model_calls": 1,
+          "model_ms": 5082.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5089.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-cobalt",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 26,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "shippingservice-r23",
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-cobalt",
+              "service": "shippingservice",
+              "observed_at": 535
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 535,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "list_deployments",
+            "inspect_latency",
+            "dependency_health",
+            "inspect_errors",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 3037,
+          "model_calls": 1,
+          "model_ms": 5208.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5212.6,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-slate",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 27,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": null,
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "cart-slate",
+              "service": "recommendationservice",
+              "observed_at": 580
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 580,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "trace_failures",
+            "inspect_errors",
+            "list_deployments",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 2995,
+          "model_calls": 1,
+          "model_ms": 5086.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5099.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-coral",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 12,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "productcatalogservice-r25",
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "catalog-coral",
+              "service": "productcatalogservice",
+              "observed_at": 625
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 625,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency",
+            "list_deployments",
+            "trace_failures",
+            "inspect_errors",
+            "sample_logs",
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 2939,
+          "model_calls": 1,
+          "model_ms": 4925.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 4934.1,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-fern",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 4,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r26",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-fern",
+              "service": "recommendationservice",
+              "observed_at": 670
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 670,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "list_deployments",
+            "trace_failures",
+            "inspect_errors",
+            "sample_logs",
+            "inspect_latency",
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 2980,
+          "model_calls": 1,
+          "model_ms": 5157.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5163.0,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-missing",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 0.4,
+          "mcp_calls": 0
+        },
+        {
+          "case": "checkout-crimson",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 12,
+            "service": "frontend",
+            "service_name": "Storefront",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": null,
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-crimson",
+              "service": "frontend",
+              "observed_at": 760
+            },
+            "owner": "Web"
+          },
+          "tool_result": {
+            "service": "frontend",
+            "environment": "production",
+            "observed_at": 760,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "list_deployments",
+            "inspect_errors",
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 3036,
+          "model_calls": 1,
+          "model_ms": 5010.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5014.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-gold",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 15,
+            "service": "cartservice",
+            "service_name": "Cart",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": null,
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-gold",
+              "service": "cartservice",
+              "observed_at": 805
+            },
+            "owner": "Commerce"
+          },
+          "tool_result": {
+            "service": "cartservice",
+            "environment": "production",
+            "observed_at": 805,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "list_deployments",
+            "trace_failures",
+            "inspect_errors",
+            "inspect_latency",
+            "dependency_health",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 3010,
+          "model_calls": 1,
+          "model_ms": 5161.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5168.0,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-birch",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 15,
+            "service": "emailservice",
+            "service_name": "Email",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": null,
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "cart-birch",
+              "service": "emailservice",
+              "observed_at": 850
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "emailservice",
+            "environment": "production",
+            "observed_at": 850,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "trace_failures",
+            "inspect_errors",
+            "list_deployments",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 3024,
+          "model_calls": 1,
+          "model_ms": 5099.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5104.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-cyan",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 12,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "productcatalogservice-r31",
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "catalog-cyan",
+              "service": "productcatalogservice",
+              "observed_at": 895
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 895,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency",
+            "list_deployments",
+            "trace_failures",
+            "inspect_errors",
+            "sample_logs",
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 2939,
+          "model_calls": 1,
+          "model_ms": 4942.3,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 4951.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-lilac",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 4,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r32",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-lilac",
+              "service": "recommendationservice",
+              "observed_at": 940
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 940,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "list_deployments",
+            "trace_failures",
+            "inspect_errors",
+            "sample_logs",
+            "inspect_latency",
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 2294,
+          "prompt_tokens": 3006,
+          "model_calls": 1,
+          "model_ms": 5136.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 5147.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-stale",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 0.5,
+          "mcp_calls": 0
+        }
+      ]
+    },
+    {
+      "label": "Flat BM25",
+      "correct": 5,
+      "total": 12,
+      "errors": 0,
+      "candidate_hits": 8,
+      "tool_observations": 7,
+      "median_schemas": 1.5,
+      "median_schema_bytes": 573.5,
+      "median_prompt_tokens": 659.5,
+      "median_calls_before_tool": 1.0,
+      "p50_ms": 965.3,
+      "p95_ms": 1278.4,
+      "cases": [
+        {
+          "case": "checkout-amber",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "paymentservice",
+            "service_name": "Payments",
+            "tool": "list_deployments",
+            "skill": "Inspect deployment history",
+            "instructions": "Check recent releases and the versions serving traffic.",
+            "deploy": null,
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-amber",
+              "service": "paymentservice",
+              "observed_at": 490
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "paymentservice",
+            "environment": "production",
+            "observed_at": 490,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 777,
+          "prompt_tokens": 675,
+          "model_calls": 1,
+          "model_ms": 1110.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 1114.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-cobalt",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r23",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-cobalt",
+              "service": "payment-gateway",
+              "observed_at": 535
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 535,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: gateway reported intermittent errors; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [],
+          "candidate_hit": false,
+          "tools": [
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 777,
+          "prompt_tokens": 667,
+          "model_calls": 1,
+          "model_ms": 1065.3,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 1069.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-slate",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 3,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "payment-gateway-r24",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "cart-slate",
+              "service": "payment-gateway",
+              "observed_at": 580
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 580,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 397
+            }
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 759,
+          "prompt_tokens": 658,
+          "model_calls": 1,
+          "model_ms": 1049.7,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 1056.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-coral",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r25",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "catalog-coral",
+              "service": "productcatalogservice",
+              "observed_at": 625
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 625,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 540,
+          "model_calls": 1,
+          "model_ms": 902.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 914.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-fern",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "checkoutservice",
+            "service_name": "Checkout",
+            "tool": "list_deployments",
+            "skill": "Inspect deployment history",
+            "instructions": "Check recent releases and the versions serving traffic.",
+            "deploy": null,
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-fern",
+              "service": "checkoutservice",
+              "observed_at": 670
+            },
+            "owner": "Commerce"
+          },
+          "tool_result": {
+            "service": "checkoutservice",
+            "environment": "production",
+            "observed_at": 670,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": false,
+          "tools": [
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 388,
+          "prompt_tokens": 542,
+          "model_calls": 1,
+          "model_ms": 910.9,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 915.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-missing",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 0.3,
+          "mcp_calls": 0
+        },
+        {
+          "case": "checkout-crimson",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r28",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-crimson",
+              "service": "payment-gateway",
+              "observed_at": 760
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 760,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 777,
+          "prompt_tokens": 678,
+          "model_calls": 1,
+          "model_ms": 1153.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 1159.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-gold",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r29",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-gold",
+              "service": "payment-gateway",
+              "observed_at": 805
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 805,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: gateway reported intermittent errors; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [],
+          "candidate_hit": false,
+          "tools": [
+            "list_deployments",
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 1168,
+          "prompt_tokens": 745,
+          "model_calls": 1,
+          "model_ms": 1272.6,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 1278.4,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-birch",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 3,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "payment-gateway-r30",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "cart-birch",
+              "service": "payment-gateway",
+              "observed_at": 850
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 850,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 397
+            }
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 759,
+          "prompt_tokens": 661,
+          "model_calls": 1,
+          "model_ms": 1174.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 1185.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-cyan",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r31",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "catalog-cyan",
+              "service": "productcatalogservice",
+              "observed_at": 895
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 895,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 540,
+          "model_calls": 1,
+          "model_ms": 931.0,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 935.6,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-lilac",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "checkoutservice",
+            "service_name": "Checkout",
+            "tool": "list_deployments",
+            "skill": "Inspect deployment history",
+            "instructions": "Check recent releases and the versions serving traffic.",
+            "deploy": null,
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-lilac",
+              "service": "checkoutservice",
+              "observed_at": 940
+            },
+            "owner": "Commerce"
+          },
+          "tool_result": {
+            "service": "checkoutservice",
+            "environment": "production",
+            "observed_at": 940,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [],
+          "candidate_hit": false,
+          "tools": [
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 388,
+          "prompt_tokens": 542,
+          "model_calls": 1,
+          "model_ms": 960.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 965.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-stale",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 0,
+          "graph_calls_before_tool": 0,
+          "total_ms": 0.2,
+          "mcp_calls": 0
+        }
+      ]
+    },
+    {
+      "label": "Frozen HydraDB",
+      "correct": 9,
+      "total": 12,
+      "errors": 0,
+      "candidate_hits": 12,
+      "tool_observations": 7,
+      "median_schemas": 2.5,
+      "median_schema_bytes": 954.0,
+      "median_prompt_tokens": 714.0,
+      "median_calls_before_tool": 1.0,
+      "p50_ms": 1386.8,
+      "p95_ms": 1807.3,
+      "cases": [
+        {
+          "case": "checkout-amber",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r22",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-amber",
+              "service": "payment-gateway",
+              "observed_at": 490
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 490,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 663,
+          "model_calls": 1,
+          "model_ms": 1202.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1242.1,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-cobalt",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r23",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-cobalt",
+              "service": "shippingservice",
+              "observed_at": 535
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 535,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 668,
+          "model_calls": 1,
+          "model_ms": 1209.6,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1239.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-slate",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r24",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "cart-slate",
+              "service": "redis-cart",
+              "observed_at": 580
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 580,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 1127,
+          "prompt_tokens": 723,
+          "model_calls": 1,
+          "model_ms": 1356.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1386.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-coral",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "productcatalogservice-r25",
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "catalog-coral",
+              "service": "productcatalogservice",
+              "observed_at": 625
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 625,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "378630157000834248",
+              "name": "Check service error rates",
+              "kind": "Skill"
+            },
+            {
+              "id": "4610202713418474566",
+              "name": "inspect_errors",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency",
+            "inspect_errors",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1150,
+          "prompt_tokens": 714,
+          "model_calls": 1,
+          "model_ms": 1376.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 5,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1400.4,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-fern",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r26",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-fern",
+              "service": "recommendationservice",
+              "observed_at": 670
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 670,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1796802367509465874",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1168,
+          "prompt_tokens": 725,
+          "model_calls": 1,
+          "model_ms": 1403.3,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 5,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1433.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-missing",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 4,
+          "graph_calls_before_tool": 4,
+          "total_ms": 24.8,
+          "mcp_calls": 0
+        },
+        {
+          "case": "checkout-crimson",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r28",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-crimson",
+              "service": "payment-gateway",
+              "observed_at": 760
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 760,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 666,
+          "model_calls": 1,
+          "model_ms": 1291.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1324.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-gold",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r29",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-gold",
+              "service": "shippingservice",
+              "observed_at": 805
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 805,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 667,
+          "model_calls": 1,
+          "model_ms": 1383.3,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1416.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-birch",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r30",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "cart-birch",
+              "service": "redis-cart",
+              "observed_at": 850
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 850,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 1127,
+          "prompt_tokens": 726,
+          "model_calls": 1,
+          "model_ms": 1546.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1576.4,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-cyan",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r31",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "catalog-cyan",
+              "service": "productcatalogservice",
+              "observed_at": 895
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 895,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency",
+            "inspect_errors",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1150,
+          "prompt_tokens": 714,
+          "model_calls": 1,
+          "model_ms": 1627.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 5,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1650.1,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-lilac",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r32",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-lilac",
+              "service": "recommendationservice",
+              "observed_at": 940
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 940,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1796802367509465874",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1168,
+          "prompt_tokens": 725,
+          "model_calls": 1,
+          "model_ms": 1776.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 5,
+          "graph_calls_before_tool": 4,
+          "total_ms": 1807.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-stale",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 4,
+          "graph_calls_before_tool": 4,
+          "total_ms": 23.8,
+          "mcp_calls": 0
+        }
+      ]
+    },
+    {
+      "label": "HydraDB after round 3",
+      "correct": 12,
+      "total": 12,
+      "errors": 0,
+      "candidate_hits": 12,
+      "tool_observations": 10,
+      "median_schemas": 1.0,
+      "median_schema_bytes": 389.0,
+      "median_prompt_tokens": 401.5,
+      "median_calls_before_tool": 1.0,
+      "p50_ms": 1654.6,
+      "p95_ms": 3923.9,
+      "cases": [
+        {
+          "case": "checkout-amber",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r22",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 3,
+            "arguments": {
+              "case_id": "checkout-amber",
+              "service": "payment-gateway",
+              "observed_at": 490
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 490,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 390,
+          "prompt_tokens": 418,
+          "model_calls": 1,
+          "model_ms": 1800.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1867.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-cobalt",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r23",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-cobalt",
+              "service": "shippingservice",
+              "observed_at": 535
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 535,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 675,
+          "model_calls": 1,
+          "model_ms": 2744.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2789.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-slate",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r24",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "cart-slate",
+              "service": "redis-cart",
+              "observed_at": 580
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 580,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 388,
+          "prompt_tokens": 401,
+          "model_calls": 1,
+          "model_ms": 1491.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1526.7,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-coral",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r25",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "catalog-coral",
+              "service": "productcatalogservice",
+              "observed_at": 625
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 625,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 1414.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1441.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-fern",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "recommendationservice-r26",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "recommendations-fern",
+              "service": "recommendationservice",
+              "observed_at": 670
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 670,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "failed_requests": 80,
+              "sampled_requests": 500
+            }
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1895496830075718619",
+              "name": "Check service error rates",
+              "kind": "Skill"
+            },
+            {
+              "id": "4610202713418474566",
+              "name": "inspect_errors",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 392,
+          "prompt_tokens": 383,
+          "model_calls": 1,
+          "model_ms": 1570.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1596.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-missing",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 31.4,
+          "mcp_calls": 0
+        },
+        {
+          "case": "checkout-crimson",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r28",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 3,
+            "arguments": {
+              "case_id": "checkout-crimson",
+              "service": "payment-gateway",
+              "observed_at": 760
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 760,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 390,
+          "prompt_tokens": 419,
+          "model_calls": 1,
+          "model_ms": 2375.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2445.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-gold",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r29",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-gold",
+              "service": "shippingservice",
+              "observed_at": 805
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 805,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 674,
+          "model_calls": 1,
+          "model_ms": 3826.7,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3923.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-birch",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r30",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "cart-birch",
+              "service": "redis-cart",
+              "observed_at": 850
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 850,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 388,
+          "prompt_tokens": 402,
+          "model_calls": 1,
+          "model_ms": 1620.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1654.6,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-cyan",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r31",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "catalog-cyan",
+              "service": "productcatalogservice",
+              "observed_at": 895
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 895,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 1665.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1693.7,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-lilac",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "recommendationservice-r32",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "recommendations-lilac",
+              "service": "recommendationservice",
+              "observed_at": 940
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 940,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "failed_requests": 86,
+              "sampled_requests": 500
+            }
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1895496830075718619",
+              "name": "Check service error rates",
+              "kind": "Skill"
+            },
+            {
+              "id": "4610202713418474566",
+              "name": "inspect_errors",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 392,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 2569.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2612.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-stale",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 31.5,
+          "mcp_calls": 0
+        }
+      ]
+    }
+  ],
+  "curve": [
+    {
+      "round": 0,
+      "training_cases": 0,
+      "correct": 9,
+      "total": 12
+    },
+    {
+      "round": 1,
+      "training_cases": 3,
+      "correct": 9,
+      "total": 12
+    },
+    {
+      "round": 2,
+      "training_cases": 7,
+      "correct": 10,
+      "total": 12
+    },
+    {
+      "round": 3,
+      "training_cases": 10,
+      "correct": 12,
+      "total": 12
+    }
+  ],
+  "checkpoints": [
+    {
+      "label": "HydraDB after round 1",
+      "correct": 9,
+      "total": 12,
+      "errors": 0,
+      "candidate_hits": 12,
+      "tool_observations": 7,
+      "median_schemas": 2.5,
+      "median_schema_bytes": 954.0,
+      "median_prompt_tokens": 714.0,
+      "median_calls_before_tool": 1.0,
+      "p50_ms": 2221.2,
+      "p95_ms": 5360.4,
+      "cases": [
+        {
+          "case": "checkout-amber",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r22",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-amber",
+              "service": "payment-gateway",
+              "observed_at": 490
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 490,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 663,
+          "model_calls": 1,
+          "model_ms": 1551.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1584.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-cobalt",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r23",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-cobalt",
+              "service": "shippingservice",
+              "observed_at": 535
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 535,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 668,
+          "model_calls": 1,
+          "model_ms": 1607.0,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1635.0,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-slate",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r24",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "cart-slate",
+              "service": "redis-cart",
+              "observed_at": 580
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 580,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 1127,
+          "prompt_tokens": 723,
+          "model_calls": 1,
+          "model_ms": 1857.0,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1889.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-coral",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "productcatalogservice-r25",
+            "matched_observations": [],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "catalog-coral",
+              "service": "productcatalogservice",
+              "observed_at": 625
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 625,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "378630157000834248",
+              "name": "Check service error rates",
+              "kind": "Skill"
+            },
+            {
+              "id": "4610202713418474566",
+              "name": "inspect_errors",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency",
+            "inspect_errors",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1150,
+          "prompt_tokens": 714,
+          "model_calls": 1,
+          "model_ms": 2178.9,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2221.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-fern",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r26",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-fern",
+              "service": "recommendationservice",
+              "observed_at": 670
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 670,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1796802367509465874",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1168,
+          "prompt_tokens": 725,
+          "model_calls": 1,
+          "model_ms": 2264.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2331.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-missing",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 125.1,
+          "mcp_calls": 0
+        },
+        {
+          "case": "checkout-crimson",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r28",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-crimson",
+              "service": "payment-gateway",
+              "observed_at": 760
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 760,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 666,
+          "model_calls": 1,
+          "model_ms": 2425.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2640.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-gold",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r29",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "checkout-gold",
+              "service": "shippingservice",
+              "observed_at": 805
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 805,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 667,
+          "model_calls": 1,
+          "model_ms": 2747.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3181.1,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-birch",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r30",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "cart-birch",
+              "service": "redis-cart",
+              "observed_at": 850
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 850,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 1127,
+          "prompt_tokens": 726,
+          "model_calls": 1,
+          "model_ms": 4924.7,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 5360.4,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-cyan",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r31",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "catalog-cyan",
+              "service": "productcatalogservice",
+              "observed_at": 895
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 895,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency",
+            "inspect_errors",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1150,
+          "prompt_tokens": 714,
+          "model_calls": 1,
+          "model_ms": 2810.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3696.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-lilac",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r32",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-lilac",
+              "service": "recommendationservice",
+              "observed_at": 940
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 940,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1796802367509465874",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1168,
+          "prompt_tokens": 725,
+          "model_calls": 1,
+          "model_ms": 3320.7,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3395.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-stale",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 37.7,
+          "mcp_calls": 0
+        }
+      ]
+    },
+    {
+      "label": "HydraDB after round 2",
+      "correct": 10,
+      "total": 12,
+      "errors": 0,
+      "candidate_hits": 12,
+      "tool_observations": 8,
+      "median_schemas": 1.5,
+      "median_schema_bytes": 585.5,
+      "median_prompt_tokens": 674.5,
+      "median_calls_before_tool": 1.0,
+      "p50_ms": 2085.5,
+      "p95_ms": 7474.5,
+      "cases": [
+        {
+          "case": "checkout-amber",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r22",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "checkout-amber",
+              "service": "payment-gateway",
+              "observed_at": 490
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 490,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 390,
+          "prompt_tokens": 418,
+          "model_calls": 1,
+          "model_ms": 2019.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2075.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-cobalt",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r23",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-cobalt",
+              "service": "shippingservice",
+              "observed_at": 535
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 535,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 675,
+          "model_calls": 1,
+          "model_ms": 2976.7,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3018.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-slate",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r24",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "cart-slate",
+              "service": "redis-cart",
+              "observed_at": 580
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 580,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 1127,
+          "prompt_tokens": 723,
+          "model_calls": 1,
+          "model_ms": 3216.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3250.4,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-coral",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r25",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "catalog-coral",
+              "service": "productcatalogservice",
+              "observed_at": 625
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 625,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 1785.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1824.6,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-fern",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r26",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-fern",
+              "service": "recommendationservice",
+              "observed_at": 670
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 670,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1796802367509465874",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1168,
+          "prompt_tokens": 725,
+          "model_calls": 1,
+          "model_ms": 3815.8,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3849.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-missing",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 21.0,
+          "mcp_calls": 0
+        },
+        {
+          "case": "checkout-crimson",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r28",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "checkout-crimson",
+              "service": "payment-gateway",
+              "observed_at": 760
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 760,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 390,
+          "prompt_tokens": 419,
+          "model_calls": 1,
+          "model_ms": 2059.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2085.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-gold",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r29",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-gold",
+              "service": "shippingservice",
+              "observed_at": 805
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 805,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 674,
+          "model_calls": 1,
+          "model_ms": 3748.3,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3777.0,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-birch",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r30",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "cart-birch",
+              "service": "redis-cart",
+              "observed_at": 850
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 850,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health",
+            "inspect_latency",
+            "sample_logs"
+          ],
+          "decision": "model",
+          "schema_bytes": 1127,
+          "prompt_tokens": 726,
+          "model_calls": 1,
+          "model_ms": 6485.6,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 7474.5,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-cyan",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r31",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "catalog-cyan",
+              "service": "productcatalogservice",
+              "observed_at": 895
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 895,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 1215.3,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1574.0,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-lilac",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": false,
+          "status": "executed",
+          "selected": {
+            "id": 2,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "recommendationservice-r32",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 0,
+            "arguments": {
+              "case_id": "recommendations-lilac",
+              "service": "recommendationservice",
+              "observed_at": 940
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 940,
+            "source": "Synthetic replay telemetry",
+            "status": "no data",
+            "evidence": {}
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1796802367509465874",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors",
+            "trace_failures",
+            "list_deployments"
+          ],
+          "decision": "model",
+          "schema_bytes": 1168,
+          "prompt_tokens": 725,
+          "model_calls": 1,
+          "model_ms": 3116.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3171.7,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-stale",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 52.5,
+          "mcp_calls": 0
+        }
+      ]
+    },
+    {
+      "label": "HydraDB after round 3",
+      "correct": 12,
+      "total": 12,
+      "errors": 0,
+      "candidate_hits": 12,
+      "tool_observations": 10,
+      "median_schemas": 1.0,
+      "median_schema_bytes": 389.0,
+      "median_prompt_tokens": 401.5,
+      "median_calls_before_tool": 1.0,
+      "p50_ms": 1654.6,
+      "p95_ms": 3923.9,
+      "cases": [
+        {
+          "case": "checkout-amber",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r22",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 3,
+            "arguments": {
+              "case_id": "checkout-amber",
+              "service": "payment-gateway",
+              "observed_at": 490
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 490,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 390,
+          "prompt_tokens": 418,
+          "model_calls": 1,
+          "model_ms": 1800.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1867.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-cobalt",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r23",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-cobalt",
+              "service": "shippingservice",
+              "observed_at": 535
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 535,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 675,
+          "model_calls": 1,
+          "model_ms": 2744.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2789.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-slate",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r24",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "cart-slate",
+              "service": "redis-cart",
+              "observed_at": 580
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 580,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 388,
+          "prompt_tokens": 401,
+          "model_calls": 1,
+          "model_ms": 1491.5,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1526.7,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-coral",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r25",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "catalog-coral",
+              "service": "productcatalogservice",
+              "observed_at": 625
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 625,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 1414.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1441.2,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-fern",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "recommendationservice-r26",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "recommendations-fern",
+              "service": "recommendationservice",
+              "observed_at": 670
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 670,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "failed_requests": 80,
+              "sampled_requests": 500
+            }
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1895496830075718619",
+              "name": "Check service error rates",
+              "kind": "Skill"
+            },
+            {
+              "id": "4610202713418474566",
+              "name": "inspect_errors",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 392,
+          "prompt_tokens": 383,
+          "model_calls": 1,
+          "model_ms": 1570.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1596.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-missing",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 31.4,
+          "mcp_calls": 0
+        },
+        {
+          "case": "checkout-crimson",
+          "expected": {
+            "service": "payment-gateway",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "payment-gateway",
+            "service_name": "Payment gateway",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "payment-gateway-r28",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 3,
+            "arguments": {
+              "case_id": "checkout-crimson",
+              "service": "payment-gateway",
+              "observed_at": 760
+            },
+            "owner": "Payments"
+          },
+          "tool_result": {
+            "service": "payment-gateway",
+            "environment": "production",
+            "observed_at": 760,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "payment-gateway: upstream requests to the gateway are failing; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "252722668631042607",
+              "name": "Payments",
+              "kind": "Service"
+            },
+            {
+              "id": "4039801056838985028",
+              "name": "Payment gateway",
+              "kind": "Service"
+            },
+            {
+              "id": "3129051058192957115",
+              "name": "Payment gateway diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "3105749235420265905",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures"
+          ],
+          "decision": "model",
+          "schema_bytes": 390,
+          "prompt_tokens": 419,
+          "model_calls": 1,
+          "model_ms": 2375.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2445.3,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-gold",
+          "expected": {
+            "service": "shippingservice",
+            "tool": "trace_failures"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "shippingservice",
+            "service_name": "Shipping",
+            "tool": "trace_failures",
+            "skill": "Inspect failed traces",
+            "instructions": "Find which upstream span failed and what deployment handled it.",
+            "deploy": "shippingservice-r29",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 1,
+            "arguments": {
+              "case_id": "checkout-gold",
+              "service": "shippingservice",
+              "observed_at": 805
+            },
+            "owner": "Fulfillment"
+          },
+          "tool_result": {
+            "service": "shippingservice",
+            "environment": "production",
+            "observed_at": 805,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "trace": "shippingservice: quote service reports a rising failure rate; upstream span ended with UNAVAILABLE"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "1988955111071695826",
+              "name": "Shipping",
+              "kind": "Service"
+            },
+            {
+              "id": "580774192104701953",
+              "name": "Shipping diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1011546762776132527",
+              "name": "Inspect failed traces",
+              "kind": "Skill"
+            },
+            {
+              "id": "2172282772386208365",
+              "name": "trace_failures",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "trace_failures",
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 781,
+          "prompt_tokens": 674,
+          "model_calls": 1,
+          "model_ms": 3826.7,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 3923.9,
+          "mcp_calls": 1
+        },
+        {
+          "case": "cart-birch",
+          "expected": {
+            "service": "redis-cart",
+            "tool": "dependency_health"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "redis-cart",
+            "service_name": "Cart Redis",
+            "tool": "dependency_health",
+            "skill": "Check dependency health",
+            "instructions": "Read dependency availability and response state.",
+            "deploy": "redis-cart-r30",
+            "matched_observations": [
+              "health"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "cart-birch",
+              "service": "redis-cart",
+              "observed_at": 850
+            },
+            "owner": "Platform"
+          },
+          "tool_result": {
+            "service": "redis-cart",
+            "environment": "production",
+            "observed_at": 850,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "connection_status": "unavailable"
+            }
+          },
+          "evidence": [
+            {
+              "id": "1921202469305691747",
+              "name": "Checkout",
+              "kind": "Service"
+            },
+            {
+              "id": "4412916478003127920",
+              "name": "Cart",
+              "kind": "Service"
+            },
+            {
+              "id": "3672104508648399386",
+              "name": "Cart Redis",
+              "kind": "Service"
+            },
+            {
+              "id": "1705120000758151694",
+              "name": "Cart Redis diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "212643310682676162",
+              "name": "Check dependency health",
+              "kind": "Skill"
+            },
+            {
+              "id": "1869779666852541381",
+              "name": "dependency_health",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "dependency_health"
+          ],
+          "decision": "model",
+          "schema_bytes": 388,
+          "prompt_tokens": 402,
+          "model_calls": 1,
+          "model_ms": 1620.2,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 7,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1654.6,
+          "mcp_calls": 1
+        },
+        {
+          "case": "catalog-cyan",
+          "expected": {
+            "service": "productcatalogservice",
+            "tool": "inspect_latency"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "productcatalogservice",
+            "service_name": "Product catalog",
+            "tool": "inspect_latency",
+            "skill": "Check service latency",
+            "instructions": "Compare tail latency in the active replay window.",
+            "deploy": "productcatalogservice-r31",
+            "matched_observations": [
+              "latency"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "catalog-cyan",
+              "service": "productcatalogservice",
+              "observed_at": 895
+            },
+            "owner": "Catalog"
+          },
+          "tool_result": {
+            "service": "productcatalogservice",
+            "environment": "production",
+            "observed_at": 895,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "p95_ms": 949
+            }
+          },
+          "evidence": [
+            {
+              "id": "2758598440224578063",
+              "name": "Product catalog",
+              "kind": "Service"
+            },
+            {
+              "id": "512210915943862677",
+              "name": "Product catalog diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1146556993589071246",
+              "name": "Check service latency",
+              "kind": "Skill"
+            },
+            {
+              "id": "738790682783766827",
+              "name": "inspect_latency",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_latency"
+          ],
+          "decision": "model",
+          "schema_bytes": 372,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 1665.4,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 1693.7,
+          "mcp_calls": 1
+        },
+        {
+          "case": "recommendations-lilac",
+          "expected": {
+            "service": "recommendationservice",
+            "tool": "inspect_errors"
+          },
+          "correct": true,
+          "status": "executed",
+          "selected": {
+            "id": 1,
+            "service": "recommendationservice",
+            "service_name": "Recommendations",
+            "tool": "inspect_errors",
+            "skill": "Check service error rates",
+            "instructions": "Compare failed requests in the replay window.",
+            "deploy": "recommendationservice-r32",
+            "matched_observations": [
+              "error_counter"
+            ],
+            "confirmations": 2,
+            "arguments": {
+              "case_id": "recommendations-lilac",
+              "service": "recommendationservice",
+              "observed_at": 940
+            },
+            "owner": "Discovery"
+          },
+          "tool_result": {
+            "service": "recommendationservice",
+            "environment": "production",
+            "observed_at": 940,
+            "source": "Synthetic replay telemetry",
+            "status": "observed",
+            "evidence": {
+              "failed_requests": 86,
+              "sampled_requests": 500
+            }
+          },
+          "evidence": [
+            {
+              "id": "2759600163642664203",
+              "name": "Recommendations",
+              "kind": "Service"
+            },
+            {
+              "id": "731599460631425530",
+              "name": "Recommendations diagnostics",
+              "kind": "Runbook"
+            },
+            {
+              "id": "1895496830075718619",
+              "name": "Check service error rates",
+              "kind": "Skill"
+            },
+            {
+              "id": "4610202713418474566",
+              "name": "inspect_errors",
+              "kind": "MCP tool"
+            },
+            {
+              "id": "3645740298825411754",
+              "name": "Online Boutique replay",
+              "kind": "MCP server"
+            }
+          ],
+          "candidate_hit": true,
+          "tools": [
+            "inspect_errors"
+          ],
+          "decision": "model",
+          "schema_bytes": 392,
+          "prompt_tokens": 381,
+          "model_calls": 1,
+          "model_ms": 2569.1,
+          "model": "qwen2.5:1.5b",
+          "graph_calls": 6,
+          "graph_calls_before_tool": 5,
+          "total_ms": 2612.8,
+          "mcp_calls": 1
+        },
+        {
+          "case": "checkout-stale",
+          "expected": {
+            "service": null,
+            "tool": null
+          },
+          "correct": true,
+          "status": "abstained",
+          "selected": null,
+          "tool_result": null,
+          "evidence": [],
+          "candidate_hit": true,
+          "tools": [],
+          "decision": "model",
+          "schema_bytes": 0,
+          "prompt_tokens": null,
+          "model_calls": 0,
+          "model_ms": 0,
+          "graph_calls": 5,
+          "graph_calls_before_tool": 5,
+          "total_ms": 31.5,
+          "mcp_calls": 0
+        }
+      ]
+    }
+  ],
+  "graph_query_load": [
+    {
+      "concurrency": 1,
+      "requests": 30,
+      "errors": 0,
+      "p50_ms": 16.87,
+      "p95_ms": 18.71
+    },
+    {
+      "concurrency": 5,
+      "requests": 30,
+      "errors": 0,
+      "p50_ms": 46.84,
+      "p95_ms": 58.74
+    },
+    {
+      "concurrency": 10,
+      "requests": 30,
+      "errors": 0,
+      "p50_ms": 125.28,
+      "p95_ms": 165.32
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+*
+!pyproject.toml
+!uv.lock
+!triage/
+!triage/**
+!data/
+!data/**
+**/__pycache__/

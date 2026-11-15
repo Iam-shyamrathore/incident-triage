@@ -1,0 +1,42 @@
+{
+  "gateway-01": {
+    "service": "payment-gateway",
+    "tool": "trace_failures"
+  },
+  "redis-01": {
+    "service": "redis-cart",
+    "tool": "dependency_health"
+  },
+  "gateway-02": {
+    "service": "payment-gateway",
+    "tool": "trace_failures"
+  },
+  "shipping-01": {
+    "service": "shippingservice",
+    "tool": "trace_failures"
+  },
+  "gateway-03": {
+    "service": "payment-gateway",
+    "tool": "trace_failures"
+  },
+  "redis-02": {
+    "service": "redis-cart",
+    "tool": "dependency_health"
+  },
+  "catalog-01": {
+    "service": "productcatalogservice",
+    "tool": "inspect_latency"
+  },
+  "catalog-02": {
+    "service": "productcatalogservice",
+    "tool": "inspect_latency"
+  },
+  "recommendation-01": {
+    "service": "recommendationservice",
+    "tool": "inspect_errors"
+  },
+  "recommendation-02": {
+    "service": "recommendationservice",
+    "tool": "inspect_errors"
+  }
+}

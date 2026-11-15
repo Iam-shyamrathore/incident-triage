@@ -1,0 +1,20 @@
+[project]
+name = "incident-triage"
+version = "0.1.0"
+description = "A HydraDB context layer for incident response agents"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "google-auth[requests]>=2.40,<3",
+    "httpx>=0.28,<1",
+    "jsonschema>=4.26,<5",
+    "mcp>=1.13,<2",
+    "typing-extensions>=4.14,<5",
+    "uvicorn>=0.34,<1",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

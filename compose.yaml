@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    environment:
+      CLOUD_PROVIDER: local
+      LOCAL_PATH: /data/graph
+      GRAPH_AUTH_TOKEN: ${GRAPH_AUTH_TOKEN:?Generate a token with openssl rand -hex 32}
+      TRIAGE_MODEL_URL: ${TRIAGE_MODEL_URL:-}
+      TRIAGE_MODEL_KEY: ${TRIAGE_MODEL_KEY:-}
+      TRIAGE_MODEL: ${TRIAGE_MODEL:-}
+      TRIAGE_DECISION_MODE: ${TRIAGE_DECISION_MODE:-model}
+      TRIAGE_LOAD_VERIFIED_TRAINING: "1"
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - graph:/data/graph
+volumes:
+  graph:

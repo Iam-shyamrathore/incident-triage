@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Replay an incident and inspect the HydraDB context behind the first diagnostic action.">
+  <title>Incident Triage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/app.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap bar">
+      <a class="wordmark" href="/" aria-label="Incident Triage home"><span class="mark" aria-hidden="true">↳</span> Incident Triage</a>
+      <nav aria-label="Sections"><a href="#replay">Replay</a><a href="#benchmark">Benchmark</a></nav>
+      <span class="status" id="engine-status"><span class="dot"></span> Connecting</span>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="intro" id="replay">
+      <div>
+        <p class="section-label">Online Boutique incident replay</p>
+        <h1>Find the first check.</h1>
+        <p class="lede">Replay a service alert. See which dependencies, runbook and tool HydraDB puts in front of the agent.</p>
+      </div>
+      <p class="scope">Synthetic telemetry<br><span>Read-only diagnostics</span></p>
+    </section>
+    <section class="workspace" aria-label="Incident replay">
+      <aside class="docket">
+        <div class="panel-title"><h2>Incoming alert</h2><span id="case-code" class="metadata"></span></div>
+        <form id="replay-form">
+          <label for="case-picker">Replay incident</label>
+          <select id="case-picker" required><option>Loading incidents…</option></select>
+          <div class="alert-body">
+            <span class="alert-icon" aria-hidden="true">!</span>
+            <div><p id="alert-text">Select an incident to inspect the alert.</p><span id="case-service" class="metadata"></span></div>
+          </div>
+          <label for="mode-picker">Agent context</label>
+          <select id="mode-picker">
+            <option value="learned">HydraDB with feedback</option>
+            <option value="graph">Frozen HydraDB</option>
+            <option value="flat">Flat tool search</option>
+            <option value="preload">All tools preloaded</option>
+          </select>
+          <button type="submit" id="run" disabled>Run triage <span aria-hidden="true">→</span></button>
+        </form>
+        <p id="replay-status" class="run-status" role="status" aria-live="polite"></p>
+        <dl class="metrics" id="metrics" hidden></dl>
+      </aside>
+      <section class="response" aria-labelledby="response-title">
+        <div class="panel-title response-header"><h2 id="response-title">Response trace</h2><span class="metadata" id="trace-state">AWAITING REPLAY</span></div>
+        <div class="empty" id="empty">
+          <div class="empty-rail" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p>Run an alert to see the selected diagnostic and the graph behind it.</p>
+        </div>
+        <div id="output" hidden>
+          <div class="diagnostic">
+            <span class="metadata" id="check-label">FIRST DIAGNOSTIC</span>
+            <h3 id="action-title"></h3>
+            <p id="action-detail"></p>
+            <div id="finding" class="finding" hidden>
+              <span>Observed result</span><p id="finding-text"></p>
+            </div>
+          </div>
+          <div class="trace" id="trace" hidden>
+            <h3>Evidence path</h3>
+            <ol id="path"></ol>
+          </div>
+          <div class="observations" id="observations" hidden>
+            <h3>Signals available at alert time</h3>
+            <ul id="signals"></ul>
+          </div>
+          <details id="tool-result" open hidden><summary>MCP result</summary><pre id="tool-json"></pre></details>
+          <details id="context" hidden>
+            <summary id="context-title">Agent context</summary>
+            <ul id="action-list" class="action-list"></ul>
+            <div id="schema-list"></div>
+          </details>
+        </div>
+      </section>
+    </section>
+    <section class="benchmark" id="benchmark" aria-labelledby="bench-title">
+      <div class="bench-header"><div><h2 id="bench-title">Benchmark</h2></div><p id="bench-meta" class="bench-meta">Loading evaluation…</p></div>
+      <div id="bench-content" hidden>
+        <div class="table-scroll"><table><thead><tr><th>Context</th><th>Correct action</th><th>Median schemas</th><th>Median prompt</th><th>p95</th></tr></thead><tbody id="bench-rows"></tbody></table></div>
+        <div class="learning"><h3>Accuracy after feedback</h3><ol id="curve"></ol></div>
+        <p class="footnote" id="bench-note"></p><p class="footnote" id="bench-load"></p>
+        <a class="raw" href="/api/benchmark">View raw benchmark JSON ↗</a>
+      </div>
+    </section>
+    <footer><span>HydraDB Track 2</span>
+      <div class="footer-links">
+        <a href="https://github.com/Iam-shyamrathore/incident-triage">Source code ↗</a>
+        <a href="https://github.com/GoogleCloudPlatform/microservices-demo">Topology ↗</a>
+      </div></footer>
+  </main>
+</body>
+</html>
